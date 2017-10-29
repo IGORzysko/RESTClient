@@ -36,11 +36,6 @@ namespace RESTClient.Classes
                 httpMethodEnum = value;
             }
         }
-
-        public RESTClient ()
-        {
-
-        }
         
         public string MakeRequest ()
         {
