@@ -5,48 +5,65 @@ using System.Text;
 using System.Threading.Tasks;
 using RESTClient.Classes;
 using System.Net;
+using System.IO;
 
 namespace RESTClient.Classes
 {
     internal class RESTClient : IRESTClient
     {
-        private string endpoint;
+        private string _endpoint;
 
         string Endpoint
         {
             get
             {
-                return endpoint;
+                return _endpoint;
             }
             set
             {
-                endpoint = value;
+                _endpoint = value;
             }
         }
 
-        private HttpMethodEnum httpMethod;
+        private HttpMethodEnum _httpMethod;
 
         HttpMethodEnum HttpMethod
         {
             get
             {
-                return httpMethod;
+                return _httpMethod;
             }
             set
             {
-                httpMethod = value;
+                _httpMethod = value;
             }
         }
-        
-        public string MakeRequest (HttpMethod)
+
+        public string MakeRequest(HttpMethodEnum httpMethod)
         {
-            var request = (HttpWebRequest) WebRequest.Create(Endpoint);
+            var responseString = string.Empty;
+
+            var request = (HttpWebRequest)WebRequest.Create(Endpoint);
             request.Method = httpMethod.ToString();
 
-            // implement logic here ...
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            {
+                if (response.StatusCode != HttpStatusCode.OK)
+                    throw new ApplicationException($"Error code: {response.StatusCode}");
 
-            return string.Empty;
+                using (Stream responseStream = response.GetResponseStream())
+                {
+                    if (responseStream != null)
+                    {
+                        using (StreamReader streamReader = new StreamReader(responseStream))
+                        {
+                            responseString = streamReader.ReadToEnd();
+                        }
+                    }
+                }
+            }
+
+            return responseString;
         }
-
     }
 }
