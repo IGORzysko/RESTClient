@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RESTClient.Classes;
+using System.Net;
 
 namespace RESTClient.Classes
 {
@@ -23,25 +24,28 @@ namespace RESTClient.Classes
             }
         }
 
-        private HttpMethodEnum httpMethodEnum;
+        private HttpMethodEnum httpMethod;
 
-        HttpMethodEnum HttpMethodEnum
+        HttpMethodEnum HttpMethod
         {
             get
             {
-                return httpMethodEnum;
+                return httpMethod;
             }
             set
             {
-                httpMethodEnum = value;
+                httpMethod = value;
             }
         }
         
-        public string MakeRequest ()
+        public string MakeRequest (HttpMethod)
         {
+            var request = (HttpWebRequest) WebRequest.Create(Endpoint);
+            request.Method = httpMethod.ToString();
+
             // implement logic here ...
 
-            return "";
+            return string.Empty;
         }
 
     }
