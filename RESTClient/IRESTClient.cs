@@ -9,6 +9,6 @@ namespace RESTClient
 {
     interface IRESTClient
     {
-        string MakeRequest(HttpMethodEnum httpMethod);
+        string MakeRequest();
     }
 }

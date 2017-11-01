@@ -39,12 +39,12 @@ namespace RESTClient.Classes
             }
         }
 
-        public string MakeRequest(HttpMethodEnum httpMethod)
+        public string MakeRequest()
         {
             var responseString = string.Empty;
 
             var request = (HttpWebRequest)WebRequest.Create(Endpoint);
-            request.Method = httpMethod.ToString();
+            request.Method = HttpMethod.ToString();
 
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
             {
@@ -64,6 +64,20 @@ namespace RESTClient.Classes
             }
 
             return responseString;
+        }
+
+        public string AddGETParameters ()
+        {
+            // add logic here ...
+
+            return string.Empty;
+        }
+
+        public string AddPOSTParameters ()
+        {
+            // add logic here ...
+
+            return string.Empty;
         }
     }
 }
