@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RESTClient.Classes;
 using System.Net;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace RESTClient.Classes
 {
@@ -39,12 +40,47 @@ namespace RESTClient.Classes
             }
         }
 
+        private string _contentType;
+
+        string ContentType
+        {
+            get
+            {
+                return _contentType;
+            }
+            set
+            {
+                _contentType = value;
+            }
+        }
+
         public string MakeRequest()
         {
             var responseString = string.Empty;
 
             var request = (HttpWebRequest)WebRequest.Create(Endpoint);
+            request.ContentType = ContentType;
             request.Method = HttpMethod.ToString();
+
+            if (request.Method == "POST")
+            {
+                using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
+                {
+
+                    // add logic here ...
+
+                    var jsonContent = JsonConvert.SerializeObject("");
+
+                    streamWriter.Write(jsonContent);
+                    streamWriter.Flush();
+                    streamWriter.Close();
+                }
+            }
+
+            else
+            {
+                // add logic here ...
+            }
 
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
             {
