@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="Classes\HttpMethodEnum.cs" />
     <Compile Include="Classes\RESTClient.cs" />
-    <Compile Include="IRESTClient.cs" />
+    <Compile Include="Interfaces\IRESTClient.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

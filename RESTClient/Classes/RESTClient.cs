@@ -54,33 +54,52 @@ namespace RESTClient.Classes
             }
         }
 
-        public string MakeRequest()
+        public string MakePostRequest()
         {
             var responseString = string.Empty;
 
             var request = (HttpWebRequest)WebRequest.Create(Endpoint);
             request.ContentType = ContentType;
-            request.Method = HttpMethod.ToString();
-
-            if (request.Method == "POST")
+            
+            using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
             {
-                using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
+                var jsonContent = string.Empty;
+
+                // add logic here ...
+
+                streamWriter.Write(jsonContent);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            {
+                if (response.StatusCode != HttpStatusCode.OK)
+                    throw new ApplicationException($"Error code: {response.StatusCode}");
+
+                using (Stream responseStream = response.GetResponseStream())
                 {
-
-                    // add logic here ...
-
-                    var jsonContent = JsonConvert.SerializeObject("");
-
-                    streamWriter.Write(jsonContent);
-                    streamWriter.Flush();
-                    streamWriter.Close();
+                    if (responseStream != null)
+                    {
+                        using (StreamReader streamReader = new StreamReader(responseStream))
+                        {
+                            responseString = streamReader.ReadToEnd();
+                        }
+                    }
                 }
             }
 
-            else
-            {
-                // add logic here ...
-            }
+            return responseString;
+        }
+
+        public string MakeGetRequest()
+        {
+            var responseString = string.Empty;
+
+            var request = (HttpWebRequest)WebRequest.Create(Endpoint);
+            request.ContentType = ContentType;
+
+            // add logic here ...
 
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
             {
@@ -109,11 +128,11 @@ namespace RESTClient.Classes
             return string.Empty;
         }
 
-        public string AddPOSTParameters ()
+        public string SerializeToJson (Dictionary<string, dynamic> dictionary)
         {
-            // add logic here ...
+            var jsonContent = JsonConvert.SerializeObject(dictionary);
 
-            return string.Empty;
+            return jsonContent;
         }
     }
 }

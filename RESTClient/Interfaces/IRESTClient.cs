@@ -9,6 +9,7 @@ namespace RESTClient
 {
     interface IRESTClient
     {
-        string MakeRequest();
+        string MakePostRequest();
+        string MakeGetRequest();
     }
 }

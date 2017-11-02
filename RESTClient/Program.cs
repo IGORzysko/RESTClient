@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RESTClient.Classes;
 
 namespace RESTClient
 {
@@ -10,7 +11,7 @@ namespace RESTClient
     {
         static void Main(string[] args)
         {
-
+            
         }
     }
 }
