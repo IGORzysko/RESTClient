@@ -7,11 +7,9 @@ using RESTClient.Classes;
 
 namespace RESTClient
 {
-    class Program
+    interface IRESTClient
     {
-        static void Main(string[] args)
-        {
-            
-        }
+        string MakePostRequest(Dictionary<string, dynamic> bodyParameters);
+        string MakeGetRequest(Dictionary<string, dynamic> parameters);
     }
 }

@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RESTClient
+namespace RESTClient.Classes
 {
-    interface IRESTClient
+    enum HttpMethodEnum
     {
-
+        GET,
+        POST,
+        PUT,
+        DELETE
     }
 }
