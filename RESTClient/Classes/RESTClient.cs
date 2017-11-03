@@ -7,6 +7,7 @@ using RESTClient.Classes;
 using System.Net;
 using System.IO;
 using Newtonsoft.Json;
+using System.Web;
 
 namespace RESTClient.Classes
 {
@@ -54,78 +55,103 @@ namespace RESTClient.Classes
             }
         }
 
-        public string MakePostRequest()
+        public string MakePostRequest(Dictionary<string, dynamic> bodyParameters)
         {
-            var responseString = string.Empty;
+            try
+            {
+                var responseString = string.Empty;
 
-            var request = (HttpWebRequest)WebRequest.Create(Endpoint);
-            request.ContentType = ContentType;
+                var request = (HttpWebRequest)WebRequest.Create(Endpoint);
+                request.ContentType = ContentType;
+
+                using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
+                {
+                    var jsonContent = SerializeToJson(bodyParameters);
+
+                    streamWriter.Write(jsonContent);
+                    streamWriter.Flush();
+                    streamWriter.Close();
+                }
+
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    if (response.StatusCode != HttpStatusCode.OK)
+                        throw new ApplicationException($"Error code: {response.StatusCode}");
+
+                    using (Stream responseStream = response.GetResponseStream())
+                    {
+                        if (responseStream != null)
+                        {
+                            using (StreamReader streamReader = new StreamReader(responseStream))
+                            {
+                                responseString = streamReader.ReadToEnd();
+                            }
+                        }
+                    }
+                }
+                return responseString;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        public string MakeGetRequest(Dictionary<string, dynamic> parameters)
+        {
+            try
+            {
+                var responseString = string.Empty;
+
+                Endpoint = BuildUri(Endpoint, parameters);
+
+                var request = (HttpWebRequest)WebRequest.Create(Endpoint);
+                request.ContentType = ContentType;
+
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    if (response.StatusCode != HttpStatusCode.OK)
+                        throw new ApplicationException($"Error code: {response.StatusCode}");
+
+                    using (Stream responseStream = response.GetResponseStream())
+                    {
+                        if (responseStream != null)
+                        {
+                            using (StreamReader streamReader = new StreamReader(responseStream))
+                            {
+                                responseString = streamReader.ReadToEnd();
+                            }
+                        }
+                    }
+                }
+
+                return responseString;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
             
-            using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
-            {
-                var jsonContent = string.Empty;
-
-                // add logic here ...
-
-                streamWriter.Write(jsonContent);
-                streamWriter.Flush();
-                streamWriter.Close();
-            }
-
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            {
-                if (response.StatusCode != HttpStatusCode.OK)
-                    throw new ApplicationException($"Error code: {response.StatusCode}");
-
-                using (Stream responseStream = response.GetResponseStream())
-                {
-                    if (responseStream != null)
-                    {
-                        using (StreamReader streamReader = new StreamReader(responseStream))
-                        {
-                            responseString = streamReader.ReadToEnd();
-                        }
-                    }
-                }
-            }
-
-            return responseString;
         }
 
-        public string MakeGetRequest()
+        public string BuildUri (string Endpoint, Dictionary<string, dynamic> parameters)
         {
-            var responseString = string.Empty;
 
-            var request = (HttpWebRequest)WebRequest.Create(Endpoint);
-            request.ContentType = ContentType;
+            var uriBuilder = new UriBuilder(Endpoint);
+            var query = HttpUtility.ParseQueryString(uriBuilder.Query);
 
-            // add logic here ...
-
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            foreach (var itemPair in parameters)
             {
-                if (response.StatusCode != HttpStatusCode.OK)
-                    throw new ApplicationException($"Error code: {response.StatusCode}");
-
-                using (Stream responseStream = response.GetResponseStream())
-                {
-                    if (responseStream != null)
-                    {
-                        using (StreamReader streamReader = new StreamReader(responseStream))
-                        {
-                            responseString = streamReader.ReadToEnd();
-                        }
-                    }
-                }
+                if (itemPair.Key is string)
+                    query[itemPair.Key] = itemPair.Value;
+                else
+                    query[itemPair.Key] = itemPair.Value.ToString();
             }
 
-            return responseString;
-        }
+            uriBuilder.Query = query.ToString();
+            Endpoint = uriBuilder.ToString();
 
-        public string AddGETParameters ()
-        {
-            // add logic here ...
-
-            return string.Empty;
+            return Endpoint;
         }
 
         public string SerializeToJson (Dictionary<string, dynamic> dictionary)

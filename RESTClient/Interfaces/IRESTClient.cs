@@ -9,7 +9,7 @@ namespace RESTClient
 {
     interface IRESTClient
     {
-        string MakePostRequest();
-        string MakeGetRequest();
+        string MakePostRequest(Dictionary<string, dynamic> bodyParameters);
+        string MakeGetRequest(Dictionary<string, dynamic> parameters);
     }
 }
