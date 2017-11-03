@@ -11,7 +11,7 @@ using System.Web;
 
 namespace RESTClient.Classes
 {
-    internal class RESTClient : IRESTClient
+    public class RESTClient : IRESTClient
     {
         private string _endpoint;
 
