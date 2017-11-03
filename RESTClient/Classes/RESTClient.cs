@@ -73,22 +73,8 @@ namespace RESTClient.Classes
                     streamWriter.Close();
                 }
 
-                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-                {
-                    if (response.StatusCode != HttpStatusCode.OK)
-                        throw new ApplicationException($"Error code: {response.StatusCode}");
+                responseString = ResponseStream.GetResponseStream(request);
 
-                    using (Stream responseStream = response.GetResponseStream())
-                    {
-                        if (responseStream != null)
-                        {
-                            using (StreamReader streamReader = new StreamReader(responseStream))
-                            {
-                                responseString = streamReader.ReadToEnd();
-                            }
-                        }
-                    }
-                }
                 return responseString;
             }
             catch (Exception ex)
@@ -108,22 +94,7 @@ namespace RESTClient.Classes
                 var request = (HttpWebRequest)WebRequest.Create(Endpoint);
                 request.ContentType = ContentType;
 
-                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-                {
-                    if (response.StatusCode != HttpStatusCode.OK)
-                        throw new ApplicationException($"Error code: {response.StatusCode}");
-
-                    using (Stream responseStream = response.GetResponseStream())
-                    {
-                        if (responseStream != null)
-                        {
-                            using (StreamReader streamReader = new StreamReader(responseStream))
-                            {
-                                responseString = streamReader.ReadToEnd();
-                            }
-                        }
-                    }
-                }
+                responseString = ResponseStream.GetResponseStream(request);
 
                 return responseString;
             }
