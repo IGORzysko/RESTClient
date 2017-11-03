@@ -11,48 +11,11 @@ using System.Web;
 
 namespace RESTClient.Classes
 {
-    public class RESTClient : IRESTClient
+    public class RESTClient : RESTClientInitializer, IRESTClient
     {
-        private string _endpoint;
-
-        string Endpoint
+        public RESTClient()
         {
-            get
-            {
-                return _endpoint;
-            }
-            set
-            {
-                _endpoint = value;
-            }
-        }
 
-        private HttpMethodEnum _httpMethod;
-
-        HttpMethodEnum HttpMethod
-        {
-            get
-            {
-                return _httpMethod;
-            }
-            set
-            {
-                _httpMethod = value;
-            }
-        }
-
-        private string _contentType;
-
-        string ContentType
-        {
-            get
-            {
-                return _contentType;
-            }
-            set
-            {
-                _contentType = value;
-            }
         }
 
         public string MakePostRequest(Dictionary<string, dynamic> bodyParameters)

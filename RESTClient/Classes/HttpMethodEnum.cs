@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RESTClient.Classes
 {
-    enum HttpMethodEnum
+    public enum HttpMethodEnum
     {
         GET,
         POST,
