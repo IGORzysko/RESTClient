@@ -13,7 +13,7 @@ namespace RESTClient.Classes
 {
     public class RESTClient : RESTClientInitializer, IRESTClient
     {
-        public RESTClient()
+        public RESTClient() : base()
         {
 
         }

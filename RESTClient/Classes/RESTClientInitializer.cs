@@ -13,6 +13,11 @@ namespace RESTClient.Classes
 {
     public class RESTClientInitializer
     {
+        protected RESTClientInitializer()
+        {
+
+        }
+
         private string _endpoint;
 
         protected string Endpoint
