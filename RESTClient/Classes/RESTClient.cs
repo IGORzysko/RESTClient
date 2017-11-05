@@ -94,5 +94,12 @@ namespace RESTClient.Classes
 
             return jsonContent;
         }
+
+        public object DeserializeFromJson(string jsonContent)
+        {
+            var jsonDeserializedContent = JsonConvert.DeserializeObject(jsonContent);
+
+            return jsonDeserializedContent;
+        }
     }
 }

@@ -38,6 +38,8 @@ namespace RESTClient.Classes.Tests
 
             #region Assert
 
+
+            Console.WriteLine(response);
             Assert.IsNotNull(response);
 
             #endregion
