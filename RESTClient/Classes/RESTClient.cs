@@ -25,7 +25,7 @@ namespace RESTClient.Classes
                 var responseString = string.Empty;
 
                 var request = (HttpWebRequest)WebRequest.Create(Endpoint);
-                request.ContentType = "text/html";
+                request.ContentType = ContentType;
 
                 using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
                 {
@@ -55,7 +55,7 @@ namespace RESTClient.Classes
                 Endpoint = BuildUri(Endpoint, parameters);
 
                 var request = (HttpWebRequest)WebRequest.Create(Endpoint);
-                request.ContentType = "text / html";
+                request.ContentType = ContentType;
 
                 responseString = ResponseStream.GetResponseStream(request);
 

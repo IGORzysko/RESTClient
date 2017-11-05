@@ -45,5 +45,15 @@ namespace RESTClient.Classes
                 _httpMethod = value;
             }
         }
+
+        string _contentType;
+
+        public string ContentType
+        {
+            get
+            {
+                return _contentType = "text / html";
+            }
+        }
     }
 }
