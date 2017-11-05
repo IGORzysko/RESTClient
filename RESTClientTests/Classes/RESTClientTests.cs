@@ -14,13 +14,29 @@ namespace RESTClient.Classes.Tests
         [TestMethod()]
         public void MakePostRequestTest()
         {
-            Assert.Fail();
+            var restClient = new RESTClient();
+            restClient.Endpoint = "";
+
+            var response = restClient.MakePostRequest(new Dictionary<string, dynamic>
+            {
+
+            });
+
+            Assert.IsNotNull(response);
         }
 
         [TestMethod()]
         public void MakeGetRequestTest()
         {
-            Assert.Fail();
+            var restClient = new RESTClient();
+            restClient.Endpoint = "";
+
+            var response = restClient.MakeGetRequest(new Dictionary<string, dynamic>
+            {
+
+            });
+
+            Assert.IsNotNull(response);
         }
 
         [TestMethod()]

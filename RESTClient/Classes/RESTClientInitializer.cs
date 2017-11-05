@@ -18,9 +18,9 @@ namespace RESTClient.Classes
 
         }
 
-        private string _endpoint;
+        string _endpoint;
 
-        protected string Endpoint
+        public string Endpoint
         {
             get
             {
@@ -32,9 +32,9 @@ namespace RESTClient.Classes
             }
         }
 
-        private HttpMethodEnum _httpMethod;
+        HttpMethodEnum _httpMethod;
 
-        protected HttpMethodEnum HttpMethod
+        public HttpMethodEnum HttpMethod
         {
             get
             {
@@ -43,20 +43,6 @@ namespace RESTClient.Classes
             set
             {
                 _httpMethod = value;
-            }
-        }
-
-        private string _contentType;
-
-        protected string ContentType
-        {
-            get
-            {
-                return _contentType;
-            }
-            set
-            {
-                _contentType = value;
             }
         }
     }
