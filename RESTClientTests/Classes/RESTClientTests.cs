@@ -22,6 +22,7 @@ namespace RESTClient.Classes.Tests
         {
             #region Arrange
 
+            var responseResult = new object();
             var restClient = new RESTClient();
             restClient.Endpoint = "http://api.nbp.pl/api/exchangerates/rates/C/EUR";
 
@@ -34,12 +35,13 @@ namespace RESTClient.Classes.Tests
                 { "format", "json"}
             });
 
+            responseResult = RESTClient.DeserializeFromJson(response);
+
             #endregion
 
             #region Assert
 
-
-            Console.WriteLine(response);
+            Console.WriteLine(responseResult);
             Assert.IsNotNull(response);
 
             #endregion
