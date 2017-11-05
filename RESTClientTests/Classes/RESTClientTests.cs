@@ -14,29 +14,35 @@ namespace RESTClient.Classes.Tests
         [TestMethod()]
         public void MakePostRequestTest()
         {
-            var restClient = new RESTClient();
-            restClient.Endpoint = "";
-
-            var response = restClient.MakePostRequest(new Dictionary<string, dynamic>
-            {
-
-            });
-
-            Assert.IsNotNull(response);
+            Assert.Fail();
         }
 
         [TestMethod()]
         public void MakeGetRequestTest()
         {
+            #region Arrange
+
             var restClient = new RESTClient();
-            restClient.Endpoint = "";
+            restClient.Endpoint = "http://api.nbp.pl/api/exchangerates/rates/C/EUR";
+
+            #endregion
+
+            #region Act
 
             var response = restClient.MakeGetRequest(new Dictionary<string, dynamic>
             {
-
+                { "format", "json"}
             });
 
+            #endregion
+
+            #region Assert
+
             Assert.IsNotNull(response);
+
+            #endregion
+
+
         }
 
         [TestMethod()]
