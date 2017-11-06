@@ -68,7 +68,17 @@ namespace RESTClient.Classes.Tests
             Assert.IsNotNull(response);
 
             #endregion
+        }
 
+        [TestMethod()]
+        public void MakeGetRequestWithoutParametersTest()
+        {
+
+        }
+
+        [TestMethod()]
+        public void MakePostRequestTest()
+        {
 
         }
     }
