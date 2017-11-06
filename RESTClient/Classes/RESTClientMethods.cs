@@ -11,9 +11,9 @@ using System.Web;
 
 namespace RESTClient.Classes
 {
-    public class RESTClient : RESTClientInitializer, IRESTClient
+    public class RESTClientMethods : RESTClientInitializer, IRESTClient
     {
-        public RESTClient() : base()
+        public RESTClientMethods() : base()
         {
 
         }
@@ -27,13 +27,16 @@ namespace RESTClient.Classes
                 var request = (HttpWebRequest)WebRequest.Create(Endpoint);
                 request.ContentType = ContentType;
 
-                using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
+                if(bodyParameters != null)
                 {
-                    var jsonContent = SerializeToJson(bodyParameters);
+                    using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
+                    {
+                        var jsonContent = SerializeToJson(bodyParameters);
 
-                    streamWriter.Write(jsonContent);
-                    streamWriter.Flush();
-                    streamWriter.Close();
+                        streamWriter.Write(jsonContent);
+                        streamWriter.Flush();
+                        streamWriter.Close();
+                    }
                 }
 
                 responseString = ResponseStream.GetResponseStream(request);
@@ -46,13 +49,16 @@ namespace RESTClient.Classes
             }
         }
 
+        public string MakePostRequest() => MakePostRequest(null);
+
         public string MakeGetRequest(Dictionary<string, dynamic> parameters)
         {
             try
             {
                 var responseString = string.Empty;
 
-                Endpoint = BuildUri(Endpoint, parameters);
+                if (parameters != null)
+                    Endpoint = BuildUri(Endpoint, parameters);
 
                 var request = (HttpWebRequest)WebRequest.Create(Endpoint);
                 request.ContentType = ContentType;
@@ -66,6 +72,42 @@ namespace RESTClient.Classes
                 throw new Exception(ex.Message, ex);
             }
             
+        }
+
+        public string MakeGetRequest() => MakeGetRequest(null);
+
+        public string MakePutRequest(Dictionary<string, dynamic> parameters)
+        {
+            try
+            {
+                var responseString = string.Empty;
+
+                // to do ...
+
+                return responseString;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+
+        }
+
+        public string MakeDeleteRequest(Dictionary<string, dynamic> parameters)
+        {
+            try
+            {
+                var responseString = string.Empty;
+
+                // to do ...
+
+                return responseString;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+
         }
 
         public string BuildUri (string Endpoint, Dictionary<string, dynamic> parameters)

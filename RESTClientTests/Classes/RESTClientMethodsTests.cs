@@ -9,12 +9,35 @@ using System.Threading.Tasks;
 namespace RESTClient.Classes.Tests
 {
     [TestClass()]
-    public class RESTClientTests
+    public class RESTClientMethodsTests
     {
         [TestMethod()]
-        public void MakePostRequestTest()
+        public void MakePostRequestWithoutBodyTest()
         {
-            Assert.Fail();
+            #region Arrange
+
+            var responseResult = new object();
+            var restClient = new RESTClientMethods();
+
+            restClient.Endpoint = "https://jsonplaceholder.typicode.com/posts";
+
+            #endregion
+
+            #region Act
+
+            var response = restClient.MakePostRequest();
+
+            responseResult = RESTClientMethods.DeserializeFromJson(response);
+
+            #endregion
+
+            #region Assert
+
+            Console.WriteLine(responseResult);
+            Assert.IsNotNull(responseResult);
+
+            #endregion
+
         }
 
         [TestMethod()]
@@ -23,7 +46,7 @@ namespace RESTClient.Classes.Tests
             #region Arrange
 
             var responseResult = new object();
-            var restClient = new RESTClient();
+            var restClient = new RESTClientMethods();
             restClient.Endpoint = "http://api.nbp.pl/api/exchangerates/rates/C/EUR";
 
             #endregion
@@ -35,7 +58,7 @@ namespace RESTClient.Classes.Tests
                 { "format", "json"}
             });
 
-            responseResult = RESTClient.DeserializeFromJson(response);
+            responseResult = RESTClientMethods.DeserializeFromJson(response);
 
             #endregion
 
@@ -47,18 +70,6 @@ namespace RESTClient.Classes.Tests
             #endregion
 
 
-        }
-
-        [TestMethod()]
-        public void BuildUriTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void SerializeToJsonTest()
-        {
-            Assert.Fail();
         }
     }
 }
