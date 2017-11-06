@@ -53,7 +53,7 @@
     <Compile Include="Classes\HttpMethodEnum.cs" />
     <Compile Include="Classes\ResponseStream.cs" />
     <Compile Include="Classes\RESTClientInitializer.cs" />
-    <Compile Include="Classes\RESTClient.cs" />
+    <Compile Include="Classes\RESTClientMethods.cs" />
     <Compile Include="Interfaces\IRESTClient.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
