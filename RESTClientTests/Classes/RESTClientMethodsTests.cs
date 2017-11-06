@@ -12,7 +12,7 @@ namespace RESTClient.Classes.Tests
     public class RESTClientMethodsTests
     {
         [TestMethod()]
-        public void MakePostRequestTest()
+        public void MakePostRequestWithoutBodyTest()
         {
             #region Arrange
 
