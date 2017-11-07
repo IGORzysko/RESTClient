@@ -19,7 +19,7 @@ namespace RESTClient.Classes.Tests
             var responseResult = new object();
             var restClient = new RESTClientMethods();
 
-            restClient.Endpoint = "https://jsonplaceholder.typicode.com/posts";
+            restClient.Endpoint = "https://httpbin.org/post";
 
             #endregion
 
@@ -79,7 +79,34 @@ namespace RESTClient.Classes.Tests
         [TestMethod()]
         public void MakePostRequestTest()
         {
+            #region Arrange
 
+            var responseResult = new object();
+            var restClient = new RESTClientMethods();
+
+            restClient.Endpoint = "https://httpbin.org/post";
+
+            #endregion
+
+            #region Act
+
+            var response = restClient.MakePostRequest(new Dictionary<string, dynamic>
+            {
+                { "parameter1", 1},
+                {"parameter2", "value" }
+            }
+            );
+
+            responseResult = RESTClientMethods.DeserializeFromJson(response);
+
+            #endregion
+
+            #region Assert
+
+            Console.WriteLine(responseResult);
+            Assert.IsNotNull(responseResult);
+
+            #endregion
         }
     }
 }

@@ -26,8 +26,9 @@ namespace RESTClient.Classes
 
                 var request = (HttpWebRequest)WebRequest.Create(Endpoint);
                 request.ContentType = ContentType;
+                request.Method = "POST";
 
-                if(bodyParameters != null)
+                if (bodyParameters != null)
                 {
                     using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
                     {
@@ -62,6 +63,7 @@ namespace RESTClient.Classes
 
                 var request = (HttpWebRequest)WebRequest.Create(Endpoint);
                 request.ContentType = ContentType;
+                request.Method = "GET";
 
                 responseString = ResponseStream.GetResponseStream(request);
 

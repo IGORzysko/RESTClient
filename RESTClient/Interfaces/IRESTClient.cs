@@ -11,5 +11,8 @@ namespace RESTClient
     {
         string MakePostRequest(Dictionary<string, dynamic> bodyParameters);
         string MakeGetRequest(Dictionary<string, dynamic> parameters);
+
+        string MakeGetRequest();
+        string MakePostRequest();
     }
 }
